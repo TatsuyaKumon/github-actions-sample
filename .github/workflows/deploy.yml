@@ -37,7 +37,7 @@ jobs:
         run: |
           echo "=step1==================="
           # clasp push -f > result.log 2>&1
-          clasp push -f
+          clasp push -f 2>&1 | tee result.log
           echo "=step2==================="
           cat result.log
           echo "=step3==================="
