@@ -31,7 +31,7 @@ jobs:
       # clasp push実行＆結果を$GITHUB_ENVにセット
       - name: Clasp push
         run: |
-          OUTPUT=$(clasp push -f 2>$1)
+          OUTPUT=$(clasp push -f 2>&1)
           echo "=(1)=============="
           echo $OUTPUT
           echo "==============="
