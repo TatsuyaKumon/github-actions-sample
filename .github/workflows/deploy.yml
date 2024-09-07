@@ -30,12 +30,9 @@ jobs:
 
       - name: Deploy
         run: |
-          clasp push -f
-
-      - name: set env-value
-        run: |
-          echo "out_text=test123" >> $GITHUB_ENV
+          OUTPUT=$(clasp push -f)
+          echo "deploy-output=$OUTPUT" >> $GITHUB_ENV
 
       - name: use env-value
         run: |
-          echo "env-value is ${{ env.out_text }}"
+          echo "env-value is ${{ env.deploy-output }}"
