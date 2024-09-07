@@ -44,8 +44,12 @@ jobs:
       - name: Clasp push
         run: |
           RESULT=`clasp push -f 2>&1 | tee ~/result.log`
-          RESULT=`echo $RESULT | sed -e "s/[\r\n]\+//g"`
-          echo "result=$RESULT" >> $GITHUB_ENV
+          # RESULT=`echo $RESULT | sed -e "s/[\r\n]\+//g"`
+          {
+            echo "result<<EOF"
+            echo "$RESULT"
+            echo "EOF"
+          }  >> $GITHUB_ENV
 
       # clasp pushが失敗した場合にjobをエラー終了させるためのstep
       - name: Failure action
