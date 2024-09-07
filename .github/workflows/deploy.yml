@@ -50,8 +50,5 @@ jobs:
           RESULT: ${{ env.result }}
         run: |
           # cat ~/result.log
-          echo -e "First line.\rSecond line."
-          echo -e "First line.\nSecond line."
-          echo -e "First line.\r\nSecond line."
-          echo -e $RESULT
+          echo -E $RESULT
           exit 1
