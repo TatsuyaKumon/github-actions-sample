@@ -32,6 +32,7 @@ jobs:
       - name: Clasp push
         run: |
           OUTPUT=`clasp push -f`
+          echo $?
           echo "==============="
           echo $OUTPUT
           echo "==============="
