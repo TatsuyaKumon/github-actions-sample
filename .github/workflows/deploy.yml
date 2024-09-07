@@ -39,5 +39,6 @@ jobs:
       - name: Judge failure
         env:
           RESULT: ${{ env.result }}
+        if: contains($RESULT, "Push failed")
         run: |
-          echo $RESULT
+          exit 1
