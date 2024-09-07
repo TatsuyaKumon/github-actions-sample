@@ -51,7 +51,7 @@ jobs:
       # clasp pushが失敗した場合にjobをエラー終了させるためのstep
       - name: Failure action
         # コマンド結果に「Push failed」が含まれていたら失敗したと判断
-        if: ${{ contains(env.result, 'Push failed') }}
+        if: ${{ contains(env.result, 'Push failed') || startsWith(env.result, 'Error ') }}
         run: |
           cat result.log
           exit 1
