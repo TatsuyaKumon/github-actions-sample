@@ -29,18 +29,13 @@ jobs:
           echo $CLASPRC_JSON > ~/.clasprc.json
 
       # clasp push実行
-      # 1.標準出力と標準エラー出力を両方とも同一ファイルに出力（直接変数に出力すると改行されなくなるため）
-      # 2.ファイル内容を変数にセット
-      # 3.変数の改行を除去（$GITHUB_ENVにセットするときにエラーになるため）
-      # 4.$GITHUB_ENVにセット
+      # 1.標準出力＋標準エラー出力をファイル出力すると同時に変数にセット
+      # 2.変数の改行を除去（$GITHUB_ENVにセットするときにエラーになるため）
+      # 3.$GITHUB_ENVにセット
       - name: Clasp push
         run: |
           RESULT=`clasp push -f 2>&1 | tee ~/result.log`
-          # RESULT=`cat ~/result.log`
-          echo -e $RESULT
-          RESULT=`echo $RESULT | sed -e "s/[\r\n]\+//g"`
-          echo "=================================="
-          echo -e $RESULT
+          #RESULT=`echo $RESULT | sed -e "s/[\r\n]\+//g"`
           echo "result=$RESULT" >> $GITHUB_ENV
 
       # clasp pushが失敗した場合にjobをエラー終了させるためのstep
