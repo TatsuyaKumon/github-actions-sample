@@ -30,7 +30,7 @@ jobs:
 
       # clasp push実行
       # 1.標準出力＋標準エラー出力を変数にセットすると同時にファイル出力（ログ出力する際になぜか変数だと改行されないため）
-      # 2.$GITHUB_ENVにセット（複数行のため書き方が特殊）
+      # 2.$GITHUB_ENVにセット（複数行用の書式）
       - name: Clasp push
         run: |
           RESULT=`clasp push -f 2>&1 | tee ~/result.log`
