@@ -34,7 +34,7 @@ jobs:
           echo "=============="
           echo $OUTPUT
           echo "=============="
-          echo "deploy-output=$OUTPUT" >> $GITHUB_ENV
+          echo "deploy-output='$OUTPUT'" >> $GITHUB_ENV
 
       - name: use env-value
         run: |
