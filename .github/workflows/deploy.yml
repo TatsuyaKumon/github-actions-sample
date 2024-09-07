@@ -33,6 +33,9 @@ jobs:
         run: |
           OUTPUT=$(clasp push -f)
           OUTPUT=`echo ${OUTPUT} | sed -e "s/[\r\n]\+//g"`
+          echo "==============="
+          echo $OUTPUT
+          echo "==============="
           echo "result=$OUTPUT" >> $GITHUB_ENV
 
       # clasp pushの結果が失敗ならエラー終了する
