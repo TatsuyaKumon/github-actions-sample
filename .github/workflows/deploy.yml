@@ -35,23 +35,15 @@ jobs:
       # 4.$GITHUB_ENVにセット
       - name: Clasp push
         run: |
-          echo "=step1==================="
-          # clasp push -f > result.log 2>&1
-          clasp push -f 2>&1 | tee result.log
-          echo "=step2==================="
-          cat result.log
-          echo "=step3==================="
-          RESULT=`cat result.log`
-          echo "=step4==================="
+          clasp push -f 2>&1 | tee ~/result.log
+          RESULT=`cat ~/result.log`
           RESULT=`echo $RESULT | sed -e "s/[\r\n]\+//g"`
-          echo "=step5==================="
           echo "result=$RESULT" >> $GITHUB_ENV
-          echo "=step6==================="
 
       # clasp pushが失敗した場合にjobをエラー終了させるためのstep
       - name: Failure action
         # コマンド結果に「Push failed」が含まれていたら失敗したと判断
         if: ${{ contains(env.result, 'Push failed') || startsWith(env.result, 'Error retrieving') }}
         run: |
-          cat result.log
+          cat ~/result.log
           exit 1
