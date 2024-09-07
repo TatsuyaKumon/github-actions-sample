@@ -28,6 +28,15 @@ jobs:
         run: |
           echo $CLASPRC_JSON > ~/.clasprc.json
 
+      - name: Read .clasp.json
+        run: |
+          CLASP_JSON=`cat ./.clasp.json`
+          echo "claspjson=$CLASP_JSON" >> $GITHUB_ENV
+
+      - name: Output summary
+        run: |
+          echo ${{ fromJson(env.claspjson).scriptId }}
+
       # clasp push実行
       # 1.標準出力＋標準エラー出力をファイル出力すると同時に変数にセット
       # 2.変数の改行を除去（$GITHUB_ENVにセットするときにエラーになるため）
