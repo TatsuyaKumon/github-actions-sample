@@ -30,7 +30,8 @@ jobs:
 
       - name: Deploy
         run: |
-          OUTPUT="└─ src/appsscript.json └─ src/main.js Pushed 2 files."
+          OUTPUT=$(clasp push -f)
+          OUTPUT=`echo ${OUTPUT} | sed -e "s/[\r\n]\+//g"`
           echo "=============="
           echo $OUTPUT
           echo "=============="
