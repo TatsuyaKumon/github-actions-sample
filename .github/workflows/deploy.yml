@@ -56,5 +56,6 @@ jobs:
         # コマンド結果に「Push failed」が含まれている、もしくは、「Error retrieving」で始まる場合は失敗したと判断
         if: ${{ contains(env.result, 'Push failed') || startsWith(env.result, 'Error retrieving') }}
         run: |
-          cat ~/result.log
+          # cat ~/result.log
+          echo -e ${{ env.result }} 
           exit 1
