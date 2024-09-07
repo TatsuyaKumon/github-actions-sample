@@ -38,8 +38,6 @@ jobs:
 
       # clasp pushの結果が失敗ならエラー終了する
       - name: Judge failure
-        env:
-          RESULT: ${{ env.result }}
         if: ${{ contains(env.result, 'Push failed') }}
         run: |
           cat stdout.log
