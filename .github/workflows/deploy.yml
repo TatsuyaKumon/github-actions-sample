@@ -31,7 +31,7 @@ jobs:
       # clasp push実行＆結果を$GITHUB_ENVにセット
       - name: Clasp push
         run: |
-          clasp push -f 2>&1 > stdout.log
+          clasp push -f > stdout.log 2>&1
           OUTPUT=`cat stdout.log`
           OUTPUT=`echo ${OUTPUT} | sed -e "s/[\r\n]\+//g"`
           echo "result=$OUTPUT" >> $GITHUB_ENV
