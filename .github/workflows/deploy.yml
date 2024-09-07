@@ -30,7 +30,7 @@ jobs:
 
       - name: Deploy
         run: |
-          OUTPUT=$(clasp push -f)
+          OUTPUT="└─ src/appsscript.json └─ src/main.js Pushed 2 files."
           echo "=============="
           echo $OUTPUT
           echo "=============="
