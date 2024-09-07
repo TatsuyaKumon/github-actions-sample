@@ -28,7 +28,11 @@ jobs:
         run: |
           echo $CLASPRC_JSON > ~/.clasprc.json
 
-      # clasp push実行（結果を$GITHUB_ENVにセット）
+      # clasp push実行
+      # 1.標準出力と標準エラー出力を両方とも同一ファイルに出力（直接変数に出力すると改行されなくなるため）
+      # 2.ファイル内容を変数にセット
+      # 3.変数の改行を除去（$GITHUB_ENVにセットするときにエラーになるため）
+      # 4.$GITHUB_ENVにセット
       - name: Clasp push
         run: |
           clasp push -f > result.log 2>&1
