@@ -35,8 +35,8 @@ jobs:
       # 4.$GITHUB_ENVにセット
       - name: Clasp push
         run: |
-          clasp push -f 2>&1 | tee ~/result.log
-          RESULT=`cat ~/result.log`
+          RESULT=`clasp push -f 2>&1 | tee ~/result.log`
+          # RESULT=`cat ~/result.log`
           RESULT=`echo $RESULT | sed -e "s/[\r\n]\+//g"`
           echo "result=$RESULT" >> $GITHUB_ENV
 
