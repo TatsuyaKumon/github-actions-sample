@@ -29,13 +29,11 @@ jobs:
           echo $CLASPRC_JSON > ~/.clasprc.json
 
       # clasp push実行
-      # 1.標準出力＋標準エラー出力をファイル出力すると同時に変数にセット
-      # 2.変数の改行を除去（$GITHUB_ENVにセットするときにエラーになるため）
-      # 3.$GITHUB_ENVにセット
+      # 1.標準出力＋標準エラー出力を変数にセットすると同時にファイル出力（ログ出力する際になぜか変数だと改行されないため）
+      # 2.$GITHUB_ENVにセット（複数行のため書き方が特殊）
       - name: Clasp push
         run: |
           RESULT=`clasp push -f 2>&1 | tee ~/result.log`
-          RESULT=`echo $RESULT | sed -e "s/[\r\n]\+/\n/g"`
           {
             echo "result<<EOF"
             echo "$RESULT"
@@ -49,6 +47,5 @@ jobs:
         env:
           RESULT: ${{ env.result }}
         run: |
-          # cat ~/result.log
-          echo -e $RESULT
+          cat ~/result.log
           exit 1
