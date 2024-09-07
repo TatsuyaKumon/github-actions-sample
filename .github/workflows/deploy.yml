@@ -37,6 +37,7 @@ jobs:
         run: |
           RESULT=`clasp push -f 2>&1 | tee ~/result.log`
           # RESULT=`cat ~/result.log`
+          cat $RESULT
           RESULT=`echo $RESULT | sed -e "s/[\r\n]\+//g"`
           echo "result=$RESULT" >> $GITHUB_ENV
 
