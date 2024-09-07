@@ -28,17 +28,18 @@ jobs:
         run: |
           echo $CLASPRC_JSON > ~/.clasprc.json
 
-      # clasp push実行＆結果を$GITHUB_ENVにセット
+      # clasp push実行（結果を$GITHUB_ENVにセット）
       - name: Clasp push
         run: |
-          clasp push -f > stdout.log 2>&1
-          OUTPUT=`cat stdout.log`
-          OUTPUT=`echo ${OUTPUT} | sed -e "s/[\r\n]\+//g"`
-          echo "result=$OUTPUT" >> $GITHUB_ENV
+          clasp push -f > result.log 2>&1
+          RESULT=`cat result.log`
+          RESULT=`echo $RESULT | sed -e "s/[\r\n]\+//g"`
+          echo "result=$RESULT" >> $GITHUB_ENV
 
-      # clasp pushの結果が失敗ならエラー終了する
-      - name: Judge failure
+      # clasp pushが失敗した場合にjobをエラー終了させるためのstep
+      - name: Failure action
+        # コマンド結果に「Push failed」が含まれていたら失敗したと判断
         if: ${{ contains(env.result, 'Push failed') }}
         run: |
-          cat stdout.log
+          cat result.log
           exit 1
