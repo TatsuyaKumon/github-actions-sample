@@ -31,7 +31,10 @@ jobs:
       # clasp push実行＆結果を$GITHUB_ENVにセット
       - name: Clasp push
         run: |
-          OUTPUT=$(clasp push -f)
+          OUTPUT=`clasp push -f`
+          echo "==============="
+          echo $OUTPUT
+          echo "==============="
           OUTPUT=`echo ${OUTPUT} | sed -e "s/[\r\n]\+//g"`
           echo "==============="
           echo $OUTPUT
