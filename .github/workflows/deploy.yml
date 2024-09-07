@@ -32,21 +32,10 @@ jobs:
       - name: Clasp push
         run: |
           OUTPUT=$(clasp push -f 2>&1)
-          echo "=(1)=============="
-          echo $OUTPUT
-          echo "==============="
           OUTPUT=`echo ${OUTPUT} | sed -e "s/[\r\n]\+//g"`
-          echo "=(2)=============="
-          echo $OUTPUT
-          echo "==============="
           echo "result=$OUTPUT" >> $GITHUB_ENV
 
       # clasp pushの結果が失敗ならエラー終了する
       - name: Judge failure
         run: |
-          echo "=(1)=============="
-          cat stdout.log | wc -l
-          echo "==============="
-          echo "=(2)=============="
-          cat stderr.log | wc -l
-          echo "==============="
+          echo "${{ env.result }}"
