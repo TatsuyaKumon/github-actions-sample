@@ -39,6 +39,8 @@ jobs:
           # RESULT=`cat ~/result.log`
           echo -e $RESULT
           RESULT=`echo $RESULT | sed -e "s/[\r\n]\+//g"`
+          echo "=================================="
+          echo -e $RESULT
           echo "result=$RESULT" >> $GITHUB_ENV
 
       # clasp pushが失敗した場合にjobをエラー終了させるためのstep
