@@ -31,6 +31,9 @@ jobs:
       - name: Deploy
         run: |
           OUTPUT=$(clasp push -f)
+          echo "=============="
+          echo $OUTPUT
+          echo "=============="
           echo "deploy-output=$OUTPUT" >> $GITHUB_ENV
 
       - name: use env-value
