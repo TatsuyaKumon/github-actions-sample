@@ -36,7 +36,8 @@ jobs:
       - name: Clasp push
         run: |
           echo "=step1==================="
-          clasp push -f > result.log 2>&1
+          # clasp push -f > result.log 2>&1
+          clasp push -f
           echo "=step2==================="
           cat result.log
           echo "=step3==================="
