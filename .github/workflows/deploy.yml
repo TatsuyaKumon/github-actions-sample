@@ -32,14 +32,13 @@ jobs:
       - name: Clasp push
         run: |
           clasp push -f 1> stdout.log 2> stderr.log
+
+      # clasp pushの結果が失敗ならエラー終了する
+      - name: Judge failure
+        run: |
           echo "=(1)=============="
           cat stdout.log | wc -l
           echo "==============="
           echo "=(2)=============="
           cat stderr.log | wc -l
           echo "==============="
-
-      # clasp pushの結果が失敗ならエラー終了する
-      - name: Judge failure
-        run: |
-          echo "env-value is ${{ env.result }}"
