@@ -35,7 +35,7 @@ jobs:
       - name: Clasp push
         run: |
           RESULT=`clasp push -f 2>&1 | tee ~/result.log`
-          # RESULT=`echo $RESULT | sed -e "s/[\r\n]\+//g"`
+          RESULT=`echo $RESULT | sed -e "s/[\r\n]\+/\n/g"`
           {
             echo "result<<EOF"
             echo "$RESULT"
@@ -50,5 +50,5 @@ jobs:
           RESULT: ${{ env.result }}
         run: |
           # cat ~/result.log
-          echo -E $RESULT
+          echo -e $RESULT
           exit 1
