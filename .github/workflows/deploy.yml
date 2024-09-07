@@ -31,10 +31,19 @@ jobs:
       # clasp push実行＆結果を$GITHUB_ENVにセット
       - name: Clasp push
         run: |
-          clasp push -f 1> stdout.log 2> stderr.log
+          OUTPUT=$(clasp push -f 2>$1)
+          echo "=(1)=============="
+          echo $OUTPUT
+          echo "==============="
+          OUTPUT=`echo ${OUTPUT} | sed -e "s/[\r\n]\+//g"`
+          echo "=(2)=============="
+          echo $OUTPUT
+          echo "==============="
+          echo "result=$OUTPUT" >> $GITHUB_ENV
 
       # clasp pushの結果が失敗ならエラー終了する
       - name: Judge failure
+        if: 
         run: |
           echo "=(1)=============="
           cat stdout.log | wc -l
