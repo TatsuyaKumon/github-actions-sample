@@ -28,15 +28,16 @@ jobs:
         run: |
           echo $CLASPRC_JSON > ~/.clasprc.json
 
-      - name: Deploy
+      - name: Clasp push
         run: |
+          # clasp push実行＆結果を変数にセット
           OUTPUT=$(clasp push -f)
+          # 改行を除去
           OUTPUT=`echo ${OUTPUT} | sed -e "s/[\r\n]\+//g"`
-          echo "=============="
-          echo $OUTPUT
-          echo "=============="
-          echo "deploy-output=$OUTPUT" >> $GITHUB_ENV
+          # resultというキーでclasp pushの結果をセット
+          echo "result=$OUTPUT" >> $GITHUB_ENV
 
-      - name: use env-value
+      - name: Judge success or failure
         run: |
-          echo "env-value is ${{ env.deploy-output }}"
+          # clasp pushの結果を取得
+          echo "env-value is ${{ env.result }}"
