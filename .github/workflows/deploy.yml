@@ -33,10 +33,10 @@ jobs:
         run: |
           clasp push -f 1> stdout.log 2> stderr.log
           echo "=(1)=============="
-          cat stdout.log
+          cat stdout.log | wc -l
           echo "==============="
           echo "=(2)=============="
-          cat stderr.log
+          cat stderr.log | wc -l
           echo "==============="
 
       # clasp pushの結果が失敗ならエラー終了する
