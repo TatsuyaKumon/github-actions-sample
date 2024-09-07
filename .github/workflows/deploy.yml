@@ -35,10 +35,17 @@ jobs:
       # 4.$GITHUB_ENVにセット
       - name: Clasp push
         run: |
+          echo "=step1==================="
           clasp push -f > result.log 2>&1
+          echo "=step2==================="
+          cat result.log
+          echo "=step3==================="
           RESULT=`cat result.log`
+          echo "=step4==================="
           RESULT=`echo $RESULT | sed -e "s/[\r\n]\+//g"`
+          echo "=step5==================="
           echo "result=$RESULT" >> $GITHUB_ENV
+          echo "=step6==================="
 
       # clasp pushが失敗した場合にjobをエラー終了させるためのstep
       - name: Failure action
