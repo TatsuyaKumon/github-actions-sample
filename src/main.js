@@ -1,3 +1,3 @@
 function myFunction() {
-  console.info("Hello world 2");
+  console.info("Hello world 3");
 }
