@@ -31,7 +31,8 @@ jobs:
       # clasp push実行＆結果を$GITHUB_ENVにセット
       - name: Clasp push
         run: |
-          OUTPUT=$(clasp push -f 2>&1)
+          clasp push -f 2>&1 > stdout.log
+          OUTPUT=`cat stdout.log`
           OUTPUT=`echo ${OUTPUT} | sed -e "s/[\r\n]\+//g"`
           echo "result=$OUTPUT" >> $GITHUB_ENV
 
@@ -41,4 +42,5 @@ jobs:
           RESULT: ${{ env.result }}
         if: ${{ contains(env.result, 'Push failed') }}
         run: |
+          cat stdout.log
           exit 1
