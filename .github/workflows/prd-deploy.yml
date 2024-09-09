@@ -1,0 +1,21 @@
+name: 本番環境デプロイ
+
+on:
+  # pushトリガー実行
+  push:
+    branches:
+      - release/*
+
+jobs:
+  prd-deploy:
+    name: 本番環境
+
+    # 共通デプロイ処理を呼び出す
+    uses: ./.github/workflows/deploy.yml
+
+    # 呼び出し先でsecretが使えるようにする
+    secrets: inherit
+
+    # 環境名を引数として渡す
+    with:
+      environment_name: prd
