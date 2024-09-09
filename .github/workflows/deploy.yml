@@ -31,14 +31,16 @@ jobs:
 
       - name: Output summary
         run: |
+          # 各種ファイル読み込み
+          CLASPRC_JSON=`cat ~/.clasprc.json`
           CLASP_JSON=`cat ./.clasp.json`
           MANIFEST=`cat ./src/appsscript.json`
+          # 読み込み内容出力
           echo "## .clasprc.json" >> $GITHUB_STEP_SUMMARY
-          if [ -e ~/.clasprc.json ]; then
-            echo "配置されています（セキュリティ情報のため内容は未出力）" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "存在しません" >> $GITHUB_STEP_SUMMARY
-          fi
+          echo "セキュリティ情報のためファイル内容がマスクされています。何も出力されていない場合はファイル内容が空であることを示しています。" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo -e "$CLASPRC_JSON" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           echo "## .clasp.json" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           echo -e "$CLASP_JSON" >> $GITHUB_STEP_SUMMARY
