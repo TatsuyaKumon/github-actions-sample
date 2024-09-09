@@ -29,6 +29,19 @@ jobs:
         run: |
           echo $CLASPRC_JSON > ~/.clasprc.json
 
+      - name: Output summary
+        run: |
+          CLASP_JSON=`cat ./.clasp.json`
+          MANIFEST=`cat ./src/appsscript.json`
+          echo "## .clasp.json" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo -e "$CLASP_JSON" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "## appsscript.json" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo -e "$MANIFEST" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
       # clasp push実行
       # 1.clasp pushを実行し、その標準出力＋標準エラー出力を変数にセットする
       # 2.変数を出力する
