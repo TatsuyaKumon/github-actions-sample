@@ -6,5 +6,13 @@ on:
 jobs:
   deploy:
     name: 開発環境
+
+    # 共通デプロイ処理を呼び出す
     uses: ./.github/workflows/deploy.yml
+
+    # 呼び出し先でsecretが使えるようにする
     secrets: inherit
+
+    # 環境名を引数として渡す
+    with:
+      environment_name: dev
