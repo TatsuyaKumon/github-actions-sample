@@ -32,13 +32,19 @@ jobs:
       # 1.標準出力＋標準エラー出力を変数にセットすると同時にファイル出力（ログ出力する際になぜか変数だと改行されないため）
       # 2.$GITHUB_ENVにセット（複数行用の書式）
       - name: Clasp push
+        id: clasp_push
         run: |
           RESULT=`clasp push -f 2>&1 | tee ~/result.log`
           {
             echo "result<<EOF"
             echo "$RESULT"
             echo "EOF"
-          }  >> $GITHUB_ENV
+          }  >> $GITHUB_OUTPUT
+
+      # clasp push結果の出力
+      - name: Display clasp push result
+        run: |
+          echo ${{ steps.clasp_push.outputs.result }}
 
       # clasp pushが失敗した場合にjobをエラー終了させるためのstep
       - name: Failure action
@@ -47,5 +53,4 @@ jobs:
         env:
           RESULT: ${{ env.result }}
         run: |
-          cat ~/result.log
           exit 1
