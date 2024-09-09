@@ -1,4 +1,4 @@
-name: dev-deploy
+name: 開発環境デプロイ
 
 on:
   workflow_dispatch:
