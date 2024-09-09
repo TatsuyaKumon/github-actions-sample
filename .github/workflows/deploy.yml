@@ -35,9 +35,9 @@ jobs:
           MANIFEST=`cat ./src/appsscript.json`
           echo "## .clasprc.json" >> $GITHUB_STEP_SUMMARY
           if [ -e ~/.clasprc.json ]; then
-            echo "存在します"
+            echo "存在します" >> $GITHUB_STEP_SUMMARY
           else
-            echo "存在しません"
+            echo "存在しません" >> $GITHUB_STEP_SUMMARY
           fi
           echo "## .clasp.json" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
