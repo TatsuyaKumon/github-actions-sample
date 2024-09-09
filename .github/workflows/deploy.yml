@@ -1,34 +1,69 @@
-name: common-deploy
+name: 共通デプロイ処理
 
 on:
   workflow_call:
+    inputs:
+      # 環境名を呼び出し元から引数で受け取る
+      environment_name:
+        required: true
+        type: string
 
 jobs:
   deploy:
     name: デプロイ
+
+    # 引数で受け取った環境名をセット
+    environment:
+      name: ${{ inputs.environment_name }}
+
+    # 実行OS
     runs-on: ubuntu-latest
+
+    # タイムアウト（分）
     timeout-minutes: 15
 
+    # ステップ
     steps:
+      # ブランチのチェックアウト
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Node.jsインストール
       - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
+      # claspインストール
       - name: Install Clasp
         run: |
           npm init -y
           npm install clasp -g
 
+      # clasp認証ファイル .clasprc.json 作成
       - name: Create .clasprc.json
         env:
           CLASPRC_JSON: ${{ secrets.CLASPRC_JSON }}
         run: |
           echo $CLASPRC_JSON > ~/.clasprc.json
 
+      # claspデプロイ先設定ファイル .clasp.json を上書きする（環境変数CLASP_JSONの設定有無により実行判定）
+      - name: Overwrite .clasp.json
+        # 環境変数CLASP_JSONが設定されている場合のみ実行
+        if: ${{ vars.CLASP_JSON != null }}
+        env:
+          CLASP_JSON: ${{ vars.CLASP_JSON }}
+        run: |
+          echo $CLASP_JSON > ./.clasp.json
+
+      # マニフェストファイルを上書きする（.github/manifest/{環境名}_appsscript.jsonの有無により実行判定）
+      - name: Overwrite manifest file
+        # コピー元ファイルが存在する場合のみ実行
+        if: ${{ hashFiles(format('./.github/manifest/{0}_appsscript.json', inputs.environment_name)) != '' }}
+        run: |
+          cp ./.github/manifest/${{ inputs.environment_name }}_appsscript.json ./src/appsscript.json
+
+      # サマリ出力（デプロイする前に各種情報をSUMMARYに出力する）
       - name: Output summary
         run: |
           # 各種ファイル読み込み
