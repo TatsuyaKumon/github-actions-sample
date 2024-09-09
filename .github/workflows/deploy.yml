@@ -45,7 +45,7 @@ jobs:
           }  >> $GITHUB_OUTPUT
 
       # clasp pushが失敗した場合にjobをエラー終了させるためのstep
-      - name: Failure action
+      - name: Failed clasp push
         # clasp pushの結果に「Push failed」が含まれている、もしくは、「Error retrieving」で始まる場合は失敗したと判断
         if: ${{ contains(steps.clasp_push.outputs.result, 'Push failed') || startsWith(steps.clasp_push.outputs.result, 'Error retrieving') }}
         run: |
