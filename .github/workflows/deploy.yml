@@ -46,7 +46,7 @@ jobs:
         env:
           CLASP_PUSH_RESULT: ${{ steps.clasp_push.outputs.result }}
         run: |
-          echo -e $CLASP_PUSH_RESULT
+          echo -e "$CLASP_PUSH_RESULT"
 
       # clasp pushが失敗した場合にjobをエラー終了させるためのstep
       - name: Failure action
