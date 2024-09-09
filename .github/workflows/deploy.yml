@@ -34,19 +34,21 @@ jobs:
       - name: Clasp push
         id: clasp_push
         run: |
-          RESULT=`clasp push -f 2>&1 | tee ~/result.log`
-          {
-            echo "result<<EOF"
-            echo "$RESULT"
-            echo "EOF"
-          }  >> $GITHUB_OUTPUT
+          RESULT=`clasp push -f 2>&1`
+          echo -e "$RESULT"
+          # RESULT=`clasp push -f 2>&1 | tee ~/result.log`
+          # {
+          #   echo "result<<EOF"
+          #   echo "$RESULT"
+          #   echo "EOF"
+          # }  >> $GITHUB_OUTPUT
 
       # clasp push結果の出力
-      - name: Display clasp push result
-        env:
-          CLASP_PUSH_RESULT: ${{ steps.clasp_push.outputs.result }}
-        run: |
-          echo -e "$CLASP_PUSH_RESULT"
+      # - name: Display clasp push result
+      #   env:
+      #     CLASP_PUSH_RESULT: ${{ steps.clasp_push.outputs.result }}
+      #   run: |
+      #     echo -e "$CLASP_PUSH_RESULT"
 
       # clasp pushが失敗した場合にjobをエラー終了させるためのstep
       - name: Failure action
