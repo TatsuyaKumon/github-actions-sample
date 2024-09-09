@@ -1,9 +1,10 @@
-name: 開発環境
+name: dev-deploy
 
 on:
   workflow_dispatch:
 
 jobs:
   deploy:
+    name: 開発環境
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
