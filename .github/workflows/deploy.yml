@@ -29,8 +29,9 @@ jobs:
           echo $CLASPRC_JSON > ~/.clasprc.json
 
       # clasp push実行
-      # 1.標準出力＋標準エラー出力を変数にセットすると同時にファイル出力（ログ出力する際になぜか変数だと改行されないため）
-      # 2.$GITHUB_ENVにセット（複数行用の書式）
+      # 1.clasp pushを実行し、その標準出力＋標準エラー出力を変数にセットする
+      # 2.変数を出力する
+      # 3.$GITHUB_OUTPUTにセット（複数行用の書式）
       - name: Clasp push
         id: clasp_push
         run: |
@@ -44,7 +45,7 @@ jobs:
 
       # clasp pushが失敗した場合にjobをエラー終了させるためのstep
       - name: Failure action
-        # コマンド結果に「Push failed」が含まれている、もしくは、「Error retrieving」で始まる場合は失敗したと判断
+        # clasp pushの結果に「Push failed」が含まれている、もしくは、「Error retrieving」で始まる場合は失敗したと判断
         if: ${{ contains(steps.clasp_push.outputs.result, 'Push failed') || startsWith(steps.clasp_push.outputs.result, 'Error retrieving') }}
         run: |
           exit 1
