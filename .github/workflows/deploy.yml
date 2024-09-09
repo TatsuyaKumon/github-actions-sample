@@ -43,8 +43,10 @@ jobs:
 
       # clasp push結果の出力
       - name: Display clasp push result
+        env:
+          CLASP_PUSH_RESULT: ${{ steps.clasp_push.outputs.result }}
         run: |
-          echo ${{ steps.clasp_push.outputs.result }}
+          echo $CLASP_PUSH_RESULT
 
       # clasp pushが失敗した場合にjobをエラー終了させるためのstep
       - name: Failure action
