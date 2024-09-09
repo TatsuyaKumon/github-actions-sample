@@ -39,9 +39,6 @@ jobs:
           else
             echo "存在しません"
           fi
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          echo -e "$CLASPRC_JSON" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           echo "## .clasp.json" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           echo -e "$CLASP_JSON" >> $GITHUB_STEP_SUMMARY
