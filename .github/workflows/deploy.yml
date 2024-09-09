@@ -31,10 +31,14 @@ jobs:
 
       - name: Output summary
         run: |
-          CLASPRC_JSON=`cat ~/.clasprc.json`
           CLASP_JSON=`cat ./.clasp.json`
           MANIFEST=`cat ./src/appsscript.json`
           echo "## .clasprc.json" >> $GITHUB_STEP_SUMMARY
+          if [ -e ~/.clasprc.json ]; then
+            echo "存在します"
+          else
+            echo "存在しません"
+          fi
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           echo -e "$CLASPRC_JSON" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
